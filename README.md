@@ -1,8 +1,12 @@
 # Flux-API
 
-**免费渠道的 Flux 文生图 API，兼容 OpenAI 接口，可以直接接入 [one-api](https://github.com/songquanpeng/one-api) / [one-hub](https://github.com/MartialBE/one-hub) / [new-api](https://github.com/Calcium-Ion/new-api) 等中转平台**
+**免费渠道的 Flux 文生图 API，同时兼容 OpenAI 的 Image 和 Chat 接口，可以直接接入 [one-api](https://github.com/songquanpeng/one-api) / [one-hub](https://github.com/MartialBE/one-hub) / [new-api](https://github.com/Calcium-Ion/new-api) 等中转平台**
 
 演示地址：[openai-all.com](https://openai-all.com)
+
+生成图片：
+
+<img src="https://chat.ggemini.pro/a-cute-baby-sea-otter.png" width="240">
 
 ## 免费渠道
 
@@ -28,6 +32,8 @@ docker run -d -p 8080:8080 --name flux-api \
 
 ## 使用说明
 
+### 兼容 Image 接口
+
 ```bash
 curl http://127.0.0.1:8080/v1/images/generations \
   -H "Content-Type: application/json" \
@@ -40,9 +46,22 @@ curl http://127.0.0.1:8080/v1/images/generations \
   }'
 ```
 
-生成图片：
+### 兼容 Chat 接口
 
-<img src="https://chat.ggemini.pro/a-cute-baby-sea-otter.png" width="240">
+```bash
+curl http://127.0.0.1:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer #AUTH" \
+  -d '{
+    "model": "#MODEL",
+    "messages": [
+      {
+        "role": "user",
+        "content": "A cute baby sea otter"
+      }
+    ]
+  }'
+```
 
 ### SiliconFlow 配置
 

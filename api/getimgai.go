@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/sashabaranov/go-openai"
 )
 
 type GetimgAI struct {
@@ -36,7 +38,7 @@ func NewGetimgAI(cookie string) *GetimgAI {
 	return &GetimgAI{Cookie: cookie}
 }
 
-func (g *GetimgAI) GenerateImage(req *GenerateImageRequest) (*GenerateImageResponse, error) {
+func (g *GetimgAI) CreateImage(req *openai.ImageRequest) (*openai.ImageResponse, error) {
 	url := "https://getimg.ai/api/pipelines/" + req.Model
 	width, height := 1024, 1024
 	if req.Size != "" {
@@ -97,11 +99,11 @@ func (g *GetimgAI) GenerateImage(req *GenerateImageRequest) (*GenerateImageRespo
 		return nil, err
 	}
 
-	images := make([]ImageItem, 0, len(generateResp[0].Images))
+	images := make([]openai.ImageResponseDataInner, 0, len(generateResp[0].Images))
 	for _, img := range generateResp[0].Images {
-		images = append(images, ImageItem{URL: img.JpegURL})
+		images = append(images, openai.ImageResponseDataInner{URL: img.JpegURL})
 	}
-	resp2 := GenerateImageResponse{
+	resp2 := openai.ImageResponse{
 		Created: time.Now().Unix(),
 		Data:    images,
 	}

@@ -8,6 +8,8 @@ import (
 	"math/rand"
 	"net/http"
 	"time"
+
+	"github.com/sashabaranov/go-openai"
 )
 
 // Refer to https://docs.siliconflow.cn/reference/black-forest-labsflux1-schnell
@@ -23,7 +25,7 @@ type SiliconFlowGenerateImageRequest struct {
 }
 
 type SiliconFlowGenerateImageResponse struct {
-	Images []ImageItem `json:"images"`
+	Images []openai.ImageResponseDataInner `json:"images"`
 	// Ignore other fields
 }
 
@@ -31,7 +33,7 @@ func NewSiliconFlow(apiKey string) *SiliconFlow {
 	return &SiliconFlow{APIKey: apiKey}
 }
 
-func (s *SiliconFlow) GenerateImage(req *GenerateImageRequest) (*GenerateImageResponse, error) {
+func (s *SiliconFlow) CreateImage(req *openai.ImageRequest) (*openai.ImageResponse, error) {
 	url := "https://api.siliconflow.cn/v1/black-forest-labs/" + req.Model + "/text-to-image"
 	payload := SiliconFlowGenerateImageRequest{
 		Prompt:            req.Prompt,
@@ -77,7 +79,7 @@ func (s *SiliconFlow) GenerateImage(req *GenerateImageRequest) (*GenerateImageRe
 	if err := json.Unmarshal(body, &imgResp); err != nil {
 		return nil, err
 	}
-	openaiResp := GenerateImageResponse{
+	openaiResp := openai.ImageResponse{
 		Created: time.Now().Unix(),
 		Data:    imgResp.Images,
 	}
