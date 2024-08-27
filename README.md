@@ -15,7 +15,7 @@
 docker run -d -p 8080:8080 --name flux-api k8scat/flux-api:latest
 ```
 
-flux对中文理解不好，所以内置翻译功能：
+**Flux 对中文理解不好，支持开启自动翻译功能：**
 
 ```bash
 docker run -d -p 8080:8080 --name flux-api \
