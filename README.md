@@ -31,16 +31,16 @@ curl http://127.0.0.1:8080/v1/images/generations \
 
 生成图片：
 
-<img src="https://chat.ggemini.pro/a-cute-baby-sea-otter.jpeg" width="240">
+<img src="https://chat.ggemini.pro/a-cute-baby-sea-otter.png" width="240">
 
 ### SiliconFlow 配置
 
-- #MODEL => 固定值 `siliconflow/FLUX.1-schnell`
+- #MODEL => 固定值 `FLUX.1-schnell`
 - #AUTH => SiliconFlow 的 API Key，获取地址：https://cloud.siliconflow.cn/account/ak
 
 ### GetimgAI 配置
 
-- #MODEL => 固定值 `getimgai/flux-v1`
+- #MODEL => 固定值 `flux-v1`
 - #AUTH => [GetimgAI](https://getimg.ai/text-to-image) 浏览器登录后的完整 Cookie
 
 ## 交流群

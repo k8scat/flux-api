@@ -21,18 +21,10 @@ func main() {
 		authHeader := c.GetHeader("Authorization")
 		auth := strings.TrimPrefix(authHeader, "Bearer ")
 
-		parts := strings.Split(req.Model, "/")
-		if len(parts) != 2 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid model"})
-			return
-		}
-		provider := parts[0]
-		req.Model = parts[1]
-
 		var client api.OpenAI
-		if provider == "siliconflow" {
+		if req.Model == "FLUX.1-schnell" {
 			client = api.NewSiliconFlow(auth)
-		} else if provider == "getimgai" {
+		} else if req.Model == "flux-v1" {
 			client = api.NewGetimgAI(auth)
 		} else {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid provider"})
