@@ -1,9 +1,9 @@
-FROM golang:1.22.6-alpine AS builder
+FROM golang:1.22.6-alpine3.19 AS builder
 WORKDIR /app
 COPY . .
-RUN go build -o app
+RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o app
 
-FROM golang:1.22.6-alpine
+FROM alpine:3.19
 LABEL maintainer="K8sCat <k8scat@gmail.com>"
 WORKDIR /app
 COPY --from=builder /app/app .
