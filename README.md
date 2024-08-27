@@ -31,7 +31,7 @@ curl http://127.0.0.1:8080/v1/images/generations \
 
 生成图片：
 
-![A cute baby sea otter](https://chat.ggemini.pro/a-cute-baby-sea-otter.jpeg)
+<img src="https://chat.ggemini.pro/a-cute-baby-sea-otter.jpeg" width="240">
 
 ### SiliconFlow 配置
 
