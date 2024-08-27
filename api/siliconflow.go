@@ -33,19 +33,29 @@ func NewSiliconFlow(apiKey string) *SiliconFlow {
 
 func (s *SiliconFlow) GenerateImage(req *GenerateImageRequest) (*GenerateImageResponse, error) {
 	url := "https://api.siliconflow.cn/v1/black-forest-labs/" + req.Model + "/text-to-image"
-	req2 := SiliconFlowGenerateImageRequest{
+	payload := SiliconFlowGenerateImageRequest{
 		Prompt:            req.Prompt,
 		ImageSize:         req.Size,
 		Seed:              rand.Int63n(9999999999),
 		NumInferenceSteps: 20,
 	}
-	if req2.ImageSize == "" {
-		req2.ImageSize = "1024x1024"
+	if payload.ImageSize == "" {
+		payload.ImageSize = "1024x1024"
 	}
 
-	b, _ := json.Marshal(req2)
+	b, _ := json.Marshal(payload)
 	// Make a POST request to the URL with req2
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer(b))
+	req2, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(b))
+	if err != nil {
+		return nil, err
+	}
+
+	req2.Header.Add("accept", "application/json")
+	req2.Header.Add("content-type", "application/json")
+	req2.Header.Set("authorization", "Bearer "+s.APIKey)
+
+	client := &http.Client{}
+	resp, err := client.Do(req2)
 	if err != nil {
 		return nil, err
 	}
