@@ -9,4 +9,4 @@ services:
       TRANSLATE_API_BASE: https://api.openai-all.com
       TRANSLATE_API_KEY: sk-xxx
       TRANSLATE_MODEL: gpt-4o
-      
+      TRANSLATE_PROMPT_TEMPLATE: "Translate into English: %s"

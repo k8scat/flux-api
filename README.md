@@ -27,6 +27,7 @@ docker run -d -p 8080:8080 --name flux-api \
     -e TRANSLATE_API_BASE=https://api.openai-all.com \
     -e TRANSLATE_API_KEY=sk-xxx \
     -e TRANSLATE_MODEL=gpt-4o \
+    -e TRANSLATE_PROMPT_TEMPLATE="Translate into English: %s" \
     k8scat/flux-api:latest
 ```
 

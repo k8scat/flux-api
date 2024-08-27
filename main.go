@@ -21,6 +21,7 @@ func translatePrompt(prompt string) string {
 			os.Getenv("TRANSLATE_API_BASE"),
 			os.Getenv("TRANSLATE_API_KEY"),
 			os.Getenv("TRANSLATE_MODEL"),
+			os.Getenv("TRANSLATE_PROMPT_TEMPLATE"),
 		)
 		prompt, err := translator.Translate(prompt)
 		if err != nil {

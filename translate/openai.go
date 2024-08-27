@@ -14,11 +14,12 @@ type OpenAITranslator struct {
 	PromptTemplate string
 }
 
-func NewOpenAITranslator(baseURL, apiKey, model string) *OpenAITranslator {
+func NewOpenAITranslator(baseURL, apiKey, model, promptTemplate string) *OpenAITranslator {
 	return &OpenAITranslator{
-		BaseURL: baseURL,
-		APIKey:  apiKey,
-		Model:   model,
+		BaseURL:        baseURL,
+		APIKey:         apiKey,
+		Model:          model,
+		PromptTemplate: promptTemplate,
 	}
 }
 
@@ -28,15 +29,23 @@ func (t *OpenAITranslator) Translate(content string) (string, error) {
 	c := openai.NewClientWithConfig(config)
 	ctx := context.Background()
 
-	req := openai.CompletionRequest{
-		Model:  t.Model,
-		Prompt: fmt.Sprintf(t.PromptTemplate, content),
+	req := openai.ChatCompletionRequest{
+		Model: t.Model,
+		Messages: []openai.ChatCompletionMessage{
+			{
+				Role:    openai.ChatMessageRoleUser,
+				Content: fmt.Sprintf(t.PromptTemplate, content),
+			},
+		},
 	}
-	resp, err := c.CreateCompletion(ctx, req)
+	resp, err := c.CreateChatCompletion(ctx, req)
 	if err != nil {
 		return "", err
 	}
-	return resp.Choices[0].Text, nil
+	if len(resp.Choices) > 0 {
+		return resp.Choices[0].Message.Content, nil
+	}
+	return "", fmt.Errorf("no response")
 }
 
 var _ Translator = &OpenAITranslator{}
