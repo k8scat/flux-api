@@ -23,8 +23,12 @@ type GetimgAIGenerateImageRequest struct {
 	NumImages int    `json:"num_images"`
 }
 
+type GetimgAIImageItem struct {
+	JpegURL string `json:"jpegUrl"`
+}
+
 type GetimgAIGenerateImageResponse struct {
-	Images []ImageItem `json:"images"`
+	Images []GetimgAIImageItem `json:"images"`
 	// Ignore other fields
 }
 
@@ -86,15 +90,20 @@ func (g *GetimgAI) GenerateImage(req *GenerateImageRequest) (*GenerateImageRespo
 	}
 
 	// Parse the response
-	var generateResp GetimgAIGenerateImageResponse
+	var generateResp []GetimgAIGenerateImageResponse
 	err = json.Unmarshal(respBody, &generateResp)
 	if err != nil {
+
 		return nil, err
 	}
 
+	images := make([]ImageItem, 0, len(generateResp[0].Images))
+	for _, img := range generateResp[0].Images {
+		images = append(images, ImageItem{URL: img.JpegURL})
+	}
 	resp2 := GenerateImageResponse{
 		Created: time.Now().Unix(),
-		Data:    generateResp.Images,
+		Data:    images,
 	}
 	return &resp2, nil
 }

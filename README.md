@@ -1,6 +1,6 @@
 # Flux-API
 
-**免费渠道的 Flux 文生图 API，适配 OpenAI 兼容性的接口**
+**免费渠道的 Flux 文生图 API，兼容 OpenAI 接口，可以直接接入 [one-api](https://github.com/songquanpeng/one-api) / [one-hub](https://github.com/MartialBE/one-hub) / [new-api](https://github.com/Calcium-Ion/new-api) 等中转平台**
 
 演示地址：[openai-all.com](https://openai-all.com)
 
@@ -15,29 +15,33 @@
 docker run -d -p 8080:8080 --name flux-api k8scat/flux-api:latest
 ```
 
-## 使用
+## 使用说明
 
 ```bash
 curl http://127.0.0.1:8080/v1/images/generations \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Authorization: Bearer #AUTH" \
   -d '{
-    "model": "$MODEL",
+    "model": "#MODEL",
     "prompt": "A cute baby sea otter",
     "n": 1,
     "size": "1024x1024"
   }'
 ```
 
+生成图片：
+
+![A cute baby sea otter](https://chat.ggemini.pro/a-cute-baby-sea-otter.jpeg)
+
 ### SiliconFlow 配置
 
-- $MODEL => 固定值 `siliconflow/FLUX.1-schnell`
-- $OPENAI_API_KEY => SiliconFlow 的 API Key，获取地址：https://cloud.siliconflow.cn/account/ak
+- #MODEL => 固定值 `siliconflow/FLUX.1-schnell`
+- #AUTH => SiliconFlow 的 API Key，获取地址：https://cloud.siliconflow.cn/account/ak
 
 ### GetimgAI 配置
 
-- $MODEL => 固定值 `getimgai/flux-v1`
-- $OPENAI_API_KEY => [GetimgAI](https://getimg.ai/text-to-image) 浏览器登录后的完整 Cookie
+- #MODEL => 固定值 `getimgai/flux-v1`
+- #AUTH => [GetimgAI](https://getimg.ai/text-to-image) 浏览器登录后的完整 Cookie
 
 ## 交流群
 
