@@ -1,6 +1,6 @@
 # Flux-API
 
-**免费渠道的 Flux 文生图 API，同时兼容 OpenAI 的 Image 和 Chat 接口，可以直接接入 [one-api](https://github.com/songquanpeng/one-api) / [one-hub](https://github.com/MartialBE/one-hub) / [new-api](https://github.com/Calcium-Ion/new-api) 等中转平台**
+**免费渠道的 Flux 文生图 API，同时兼容 OpenAI 的 Image 和 Chat 接口，支持自动翻译 Prompt，可以直接接入 [one-api](https://github.com/songquanpeng/one-api) / [one-hub](https://github.com/MartialBE/one-hub) / [new-api](https://github.com/Calcium-Ion/new-api) 等中转平台**
 
 演示地址：[openai-all.com](https://openai-all.com)
 
