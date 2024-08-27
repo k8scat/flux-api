@@ -23,7 +23,8 @@ func translatePrompt(prompt string) string {
 			os.Getenv("TRANSLATE_MODEL"),
 			os.Getenv("TRANSLATE_PROMPT_TEMPLATE"),
 		)
-		prompt, err := translator.Translate(prompt)
+		var err error
+		prompt, err = translator.Translate(prompt)
 		if err != nil {
 			log.Printf("failed to translate prompt: %v", err)
 			return prompt
