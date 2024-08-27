@@ -18,7 +18,7 @@ func translatePrompt(prompt string) string {
 	enable := strings.ToLower(os.Getenv("TRANSLATE_ENABLE"))
 	if enable == "true" {
 		translator := translate.NewOpenAITranslator(
-			os.Getenv("TRANSLATE_BASE_URL"),
+			os.Getenv("TRANSLATE_API_BASE"),
 			os.Getenv("TRANSLATE_API_KEY"),
 			os.Getenv("TRANSLATE_MODEL"),
 		)
