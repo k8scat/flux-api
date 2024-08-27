@@ -1,0 +1,12 @@
+services:
+  flux-api:
+    image: k8scat/flux-api:latest
+    container_name: flux-api
+    ports:
+      - "8080:8080"
+    environment:
+      TRANSLATE_ENABLE: true
+      TRANSLATE_API_BASE: https://api.openai-all.com
+      TRANSLATE_API_KEY: sk-xxx
+      TRANSLATE_MODEL: gpt-4o
+      

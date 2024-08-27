@@ -15,6 +15,17 @@
 docker run -d -p 8080:8080 --name flux-api k8scat/flux-api:latest
 ```
 
+flux对中文理解不好，所以内置翻译功能：
+
+```bash
+docker run -d -p 8080:8080 --name flux-api \
+    -e TRANSLATE_ENABLE=true \
+    -e TRANSLATE_API_BASE=https://api.openai-all.com \
+    -e TRANSLATE_API_KEY=sk-xxx \
+    -e TRANSLATE_MODEL=gpt-4o \
+    k8scat/flux-api:latest
+```
+
 ## 使用说明
 
 ```bash
