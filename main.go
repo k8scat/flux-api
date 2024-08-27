@@ -24,6 +24,7 @@ func translatePrompt(prompt string) string {
 			log.Printf("failed to translate prompt: %v", err)
 			return prompt
 		}
+		log.Printf("translated prompt: %s", prompt)
 	}
 	return prompt
 }
